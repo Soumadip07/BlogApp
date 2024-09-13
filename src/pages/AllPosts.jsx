@@ -1,0 +1,79 @@
+import React, { useState, useEffect } from 'react'
+import { Container, Loader, PostCard } from '../components'
+import appwriteService from "../appwrite/conifg.js";
+import { getPosts } from '../store/postSlice.js';
+import { useDispatch } from 'react-redux';
+
+function AllPosts() {
+    const [posts, setPosts] = useState([])
+    const [loading, setLoading] = useState(true)
+    const dispatch = useDispatch()
+    const [limit, setLimit] = useState(2);
+    const [allPostsLoaded, setAllPostsLoaded] = useState(false);
+
+    // useEffect(() => {
+    //     appwriteService.getPosts().then((posts) => {
+    //         if (posts) {
+    //             setPosts(posts.documents)
+    //             
+    //         }
+    //         setLoading(false)
+    //     })
+    // }, [])
+    useEffect(() => {
+        const fetchPosts = async () => {
+            try {
+                const response = await appwriteService.getPosts();
+                if (response) {
+                    setPosts(response.documents);
+                    if (response)
+                        dispatch(getPosts(response))
+                    if (response.documents.length <= limit) {
+                        setAllPostsLoaded(true);
+                    }
+                }
+            } catch (error) {
+                console.error("Error fetching posts:", error);
+            }
+            setLoading(false);
+        };
+
+        fetchPosts();
+    }, [limit]);
+
+    const handleShowMore = () => {
+        setLimit((prevLimit) => prevLimit + 2); // Increase limit to show more posts
+    };
+
+    return (
+        <div className='w-full py-8'>
+            <Container>
+                {loading ? (
+                    <div className="flex justify-center w-full">
+                        <Loader />
+                    </div>
+                ) : (
+                    <div className='flex flex-wrap'>
+                        {posts.slice(0, limit).map((post) => (
+                            <div key={post.$id} className='w-1/4 p-2'>
+                                <PostCard {...post} />
+                            </div>
+                        ))}
+                        {!allPostsLoaded && (
+                            <div className='flex justify-center w-full mt-4'>
+                                <button
+                                    className='px-4 py-2 text-white bg-blue-500 rounded'
+                                    onClick={handleShowMore}
+                                >
+                                    Show More
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                )}
+            </Container>
+        </div>
+    )
+}
+
+export default AllPosts
