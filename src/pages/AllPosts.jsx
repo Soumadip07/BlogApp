@@ -4,12 +4,13 @@ import appwriteService from "../appwrite/conifg.js";
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllPost } from '../store/postSlice.js';
 
+
 function AllPosts() {
     const [posts, setPosts] = useState([])
     const [loading, setLoading] = useState(true)
     const dispatch = useDispatch()
-    const [limit, setLimit] = useState(2);
-    const [allPostsLoaded, setAllPostsLoaded] = useState(false);
+    const [limit, setLimit] = useState(9);
+    const [currentPage, setCurrentPage] = useState(1);
 
     // useEffect(() => {
     //     appwriteService.getPosts().then((posts) => {
@@ -23,14 +24,9 @@ function AllPosts() {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await appwriteService.getPosts();
+                const response = await appwriteService.getPosts(limit);
                 if (response) {
                     setPosts(response.documents);
-                    if (response)
-                        // dispatch(getAllPost(response))
-                        if (response.documents.length <= limit) {
-                            setAllPostsLoaded(true);
-                        }
                 }
             } catch (error) {
                 console.error("Error fetching posts:", error);
@@ -41,9 +37,9 @@ function AllPosts() {
         fetchPosts();
     }, [limit]);
 
-    const handleShowMore = () => {
-        setLimit((prevLimit) => prevLimit + 2); // Increase limit to show more posts
-    };
+    // const handleShowMore = () => {
+    //     setLimit((prevLimit) => prevLimit + 2); // Increase limit to show more posts
+    // };
 
     return (
         <div className='w-full py-8'>
@@ -54,12 +50,12 @@ function AllPosts() {
                     </div>
                 ) : (
                     <div className='flex flex-wrap'>
-                        {posts.slice(0, limit).map((post) => (
+                        {posts?.map((post) => (
                             <div key={post.$id} className='w-1/4 p-2'>
                                 <PostCard {...post} />
                             </div>
                         ))}
-                        {!allPostsLoaded && (
+                        {/* {!allPostsLoaded && (
                             <div className='flex justify-center w-full mt-4'>
                                 <button
                                     className='px-4 py-2 text-white bg-blue-500 rounded'
@@ -68,9 +64,10 @@ function AllPosts() {
                                     Show More
                                 </button>
                             </div>
-                        )}
+                        )} */}
                     </div>
                 )}
+
             </Container>
         </div>
     )
