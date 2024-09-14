@@ -52,7 +52,6 @@ function Header() {
       active: authStatus,
     },
   ]
-
   return (
     <header className='py-3 bg-light-primary" shadow'>
       <Container>
@@ -79,9 +78,13 @@ function Header() {
                 </li>
               ) : null
             )}
-            {/* {authData?.name && (
-              <p>Hi,{authData?.name}</p>
-            )} */}
+            {authData?.prefs?.nickname ? (
+              <p>Hi,{authData?.prefs?.nickname}</p>
+            ) : authData?.prefs?.name ? (
+              <p>Hi,{authData?.prefs?.name}</p>
+            ) : (
+              <p>Hi,Huest</p>
+            )}
             {authData?.prefs?.profile_picture && (
               <div>
                 <img
