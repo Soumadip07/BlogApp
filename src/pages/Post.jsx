@@ -31,7 +31,7 @@ export default function Post() {
             }
         });
     };
-
+    // console.log((post))
     return post ? (
         <div className="py-8">
             <Container>
@@ -63,8 +63,9 @@ export default function Post() {
                 <div className="w-full mb-6">
                     <h1 className="text-2xl font-bold">{post.title}</h1>
                 </div>
-                <div className="browser-css">
-                    {parse(post.content)}
+                <div className=" browser-css"
+                    dangerouslySetInnerHTML={{ __html: post.content }}
+                >
                 </div>
             </Container>
         </div>
