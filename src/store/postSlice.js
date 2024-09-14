@@ -1,27 +1,34 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { nanoid, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    posts: [{ id: 1, text: "Hello world" }]
-}
-
+    posts: [],  // An array to hold post objects
+};
 const postsSlice = createSlice({
     name: "posts",
     initialState,
     reducers: {
-        getPosts: (state, action) => {
-            state.status = true;
-            state.postData = action.payload.postData;
-        },
         addPost: (state, action) => {
-            state.posts.push(action.payload.post); // Add new post to the state
+            const newPost = {
+                id: nanoid(),  // Generating a unique ID for each post
+                ...action.payload,  // Merging the post data
+            };
+            state.posts.push(newPost); // Adding the new post to the array
         },
-        // logout: (state) => {
-        //     state.status = false;
-        //     state.userData = null;
-        // }
+        getAllPost: (state, action) => {
+            state.posts = action.payload;  // Store fetched posts in state
+            state.status = 'succeeded';  // Mark status as succeeded after fetching posts
+        },
+        postLoading: (state) => {
+            state.status = 'loading'; // Set status to 'loading' when fetching posts
+        },
+        postError: (state, action) => {
+            state.status = 'failed';  // Set status to 'failed' in case of error
+            state.error = action.payload; // Capture the error message
+        },
+        // Additional reducers can be added as needed
     }
-})
+});
 
-export const { getPosts, addPost } = postsSlice.actions;
+export const { addPost, getAllPost, postLoading, postError } = postsSlice.actions;
 
 export default postsSlice.reducer;

@@ -14,29 +14,32 @@ export default function PostForm({ post }) {
             status: post?.status || "active",
         },
     });
-    //Image dimension Restriction
-    const validateImageDimensions = async (file) => {
-        return new Promise((resolve, reject) => {
-            const img = new Image();
-            img.src = URL.createObjectURL(file);
-            img.onload = () => {
-                if (img.width >= 200 && img.height >= 200) {
-                    resolve(true);
-                } else {
-                    reject(new Error("Image dimensions must be at least 200px x 200px"));
-                }
-            };
-        });
-    };
-    const [error, setError] = useState()
+
+    // Commented out image dimension validation
+    // const validateImageDimensions = async (file) => {
+    //     return new Promise((resolve, reject) => {
+    //         const img = new Image();
+    //         img.src = URL.createObjectURL(file);
+    //         img.onload = () => {
+    //             if (img.width >= 200 && img.height >= 200) {
+    //                 resolve(true);
+    //             } else {
+    //                 reject(new Error("Image dimensions must be at least 200px x 200px"));
+    //             }
+    //         };
+    //     });
+    // };
+
+    const [error, setError] = useState();
     const navigate = useNavigate();
     const userData = useSelector((state) => state.auth.userData);
 
     const submit = async (data) => {
         try {
-            if (data.image[0]) {
-                await validateImageDimensions(data.image[0]);
-            }
+            // Commented out image validation
+            // if (data.image[0]) {
+            //     await validateImageDimensions(data.image[0]);
+            // }
 
             if (post) {
                 const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null;
@@ -62,15 +65,14 @@ export default function PostForm({ post }) {
                     const dbPost = await appwriteService.createPost({ ...data, userId: userData.$id });
 
                     if (dbPost) {
-                        dispatch(addPost({ post: newPostData }));
                         navigate(`/post/${dbPost.$id}`);
                     }
                 }
             }
         } catch (error) {
-            setError("image below 400*400", { type: "manual", message: "Image below 400*400" });
+            setError("An error occurred while submitting the post.");
         }
-    }
+    };
 
     const slugTransform = useCallback((value) => {
         if (value && typeof value === "string")

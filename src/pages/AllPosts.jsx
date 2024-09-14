@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Container, Loader, PostCard } from '../components'
 import appwriteService from "../appwrite/conifg.js";
-import { getPosts } from '../store/postSlice.js';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllPost } from '../store/postSlice.js';
 
 function AllPosts() {
     const [posts, setPosts] = useState([])
@@ -27,10 +27,10 @@ function AllPosts() {
                 if (response) {
                     setPosts(response.documents);
                     if (response)
-                        dispatch(getPosts(response))
-                    if (response.documents.length <= limit) {
-                        setAllPostsLoaded(true);
-                    }
+                        // dispatch(getAllPost(response))
+                        if (response.documents.length <= limit) {
+                            setAllPostsLoaded(true);
+                        }
                 }
             } catch (error) {
                 console.error("Error fetching posts:", error);

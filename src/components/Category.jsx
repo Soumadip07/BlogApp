@@ -6,7 +6,9 @@ import tech from '../assets/tech.png';
 import travel from '../assets/travel.png';
 import food from '../assets/food.png';
 import fashion from '../assets/fashion.png';
-function Category({ posts }) {
+function CategoryList({ posts }) {
+
+    console.log(posts)
 
     const categories = [
         {
@@ -74,4 +76,4 @@ function Category({ posts }) {
     );
 }
 
-export default Category;
+export default CategoryList;

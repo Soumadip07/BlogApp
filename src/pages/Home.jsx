@@ -2,15 +2,19 @@ import React, { useEffect, useState } from 'react'
 import appwriteService from "../appwrite/conifg.js";
 import { Container, Loader, PostCard } from '../components'
 import ErrorBoundary from '../components/ErrorHandler.jsx';
+import { useDispatch } from 'react-redux';
+import { getAllPost } from '../store/postSlice.js';
 
 function Home() {
     const [posts, setPosts] = useState([])
     const [loading, setLoading] = useState(true)
+    const dispatch = useDispatch()
 
     useEffect(() => {
         const fetchPosts = async () => {
             try {
                 const response = await appwriteService.getPosts()
+                dispatch(getAllPost(response))
                 if (response) {
                     setPosts(response.documents)
                 }

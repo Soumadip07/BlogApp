@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { Category } from '../components'
 import { Loader } from '../components'
 import appwriteService from "../appwrite/conifg.js";
 import { useSelector } from 'react-redux';
+import CategoryList from '../components/Category.jsx';
 
 function CategoryPage() {
     // const [posts, setPosts] = useState([])
     const [loading, setLoading] = useState(true)
-    const posts = useSelector((state) => state.auth.postData);
+    const postData = useSelector((state) => state.posts?.posts?.documents || []);
     // useEffect(() => {
     //     appwriteService.getPosts().then((posts) => {
     //         if (posts) {
@@ -16,7 +16,9 @@ function CategoryPage() {
     //         setLoading(false)
     //     })
     // }, [])
-    console.log(posts)
+    useEffect(() => {
+        setLoading(false)
+    }, [postData]);
     return (
         <>
             {loading ? (
@@ -25,7 +27,7 @@ function CategoryPage() {
                 </div>
             ) : (
                 <div>
-                    <Category posts={posts} />
+                    <CategoryList posts={postData} />
                 </div>
             )}
         </>
