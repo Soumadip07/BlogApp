@@ -27,6 +27,11 @@ function Header() {
       active: authStatus,
     },
     {
+      name: "User Post",
+      slug: "/userPost",
+      active: authStatus,
+    },
+    {
       name: "Login",
       slug: "/login",
       active: !authStatus,
@@ -83,7 +88,7 @@ function Header() {
             ) : authData?.prefs?.name ? (
               <p>Hi,{authData?.prefs?.name}</p>
             ) : (
-              <p>Hi,Huest</p>
+              <p>Hi,Guest</p>
             )}
             {authData?.prefs?.profile_picture && (
               <div>

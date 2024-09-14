@@ -20,7 +20,7 @@ import ErrorPage from './components/ErrorPage.jsx'
 import Category from './pages/Category.jsx'
 import LatestPage from './pages/Latest.jsx'
 import Profile from './components/Profile/Profile.jsx'
-
+import UserPostPage from './pages/UserPost.jsx'
 const router = createBrowserRouter([
   {
     path: "/",
@@ -44,6 +44,14 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication>
             <Category />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "/userPost",
+        element: (
+          <AuthLayout authentication>
+            <UserPostPage />
           </AuthLayout>
         ),
       },

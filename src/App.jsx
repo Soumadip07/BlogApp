@@ -9,15 +9,11 @@ import { ThemeProvider } from './contexts/theme'
 
 function App() {
   const postData = useSelector((state) => state.posts?.posts || []);
-  useEffect(() => {
-    console.log(postData)
 
-  }, [postData]);
 
   const [loading, setLoading] = useState(true)
   const dispatch = useDispatch()
   const authData = useSelector((state) => state.auth.userData)
-  console.log(authData)
   const currentPrefs = authData?.prefs || {};
 
   // const profile_pic = authData?.prefs.profile_picture ? authData.prefs.profile_picture : ""

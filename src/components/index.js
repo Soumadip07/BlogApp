@@ -15,6 +15,7 @@ import Input from "./Input";
 import Loader from "./Loader";
 import Category from "./Category";
 import Latest from "./Latest";
+import UserPosts from "./UserPost/UserPost";
 export {
     Header,
     Footer,
@@ -33,4 +34,5 @@ export {
     Loader,
     Category,
     Latest,
+    UserPosts,
 }
