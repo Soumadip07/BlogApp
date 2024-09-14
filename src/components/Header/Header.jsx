@@ -26,11 +26,11 @@ function Header() {
       slug: "/category",
       active: authStatus,
     },
-    {
-      name: "User Post",
-      slug: "/userPost",
-      active: authStatus,
-    },
+    // {
+    //   name: "User Post",
+    //   slug: "/userPost",
+    //   active: authStatus,
+    // },
     {
       name: "Login",
       slug: "/login",
@@ -51,11 +51,11 @@ function Header() {
       slug: "/add-post",
       active: authStatus,
     },
-    {
-      name: "Profile",
-      slug: "/profile",
-      active: authStatus,
-    },
+    // {
+    //   name: "Profile",
+    //   slug: "/profile",
+    //   active: authStatus,
+    // },
   ]
   return (
     <header className='py-3 bg-light-primary" shadow'>
@@ -83,14 +83,14 @@ function Header() {
                 </li>
               ) : null
             )}
-            {authData?.prefs?.nickname ? (
+            {/* {authData?.prefs?.nickname ? (
               <p>Hi,{authData?.prefs?.nickname}</p>
             ) : authData?.prefs?.name ? (
               <p>Hi,{authData?.prefs?.name}</p>
             ) : (
               <p>Hi,Guest</p>
-            )}
-            {authData?.prefs?.profile_picture && (
+            )} */}
+            {/* {authData?.prefs?.profile_picture && (
               <div>
                 <img
                   src={appwriteService.getFilePreview(authData?.prefs?.profile_picture)}
@@ -98,13 +98,33 @@ function Header() {
                   className="object-cover w-16 h-16 rounded-full"
                 />
               </div>
-            )}
-
+            )} */}
+            <div className="dropdown text-end header-container d-flex align-items-center">
+              {authData?.prefs?.profile_picture && (
+                <a className="link-body-emphasis text-decoration-none dropdown-toggle ms-2" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src={appwriteService.getFilePreview(authData?.prefs?.profile_picture)} alt="mdo" className="object-cover w-10 h-10 rounded-full" />
+                </a>
+              )}
+              <ul className="dropdown-menu text-small" >
+                <p>{authData?.prefs?.nickname ? (
+                  <p>Hi,{authData?.prefs?.nickname}</p>
+                ) : authData?.prefs?.name ? (
+                  <p>Hi,{authData?.prefs?.name}</p>
+                ) : (
+                  <p>Hi,Guest</p>
+                )}</p>
+                <li><a className="dropdown-item" onClick={(e) => { navigate('/profile') }}>Profile</a></li>
+                <li><a className="dropdown-item" onClick={(e) => { navigate('/userPost') }}>Post</a></li>
+                <li><hr className="dropdown-divider" /></li>
+                <li><a className="dropdown-item" onClick={(e) => { navigate('/logout') }}>Sign out</a></li>
+              </ul>
+            </div>
+            {/* 
             {authStatus && (
               <li>
                 <LogoutBtn />
               </li>
-            )}
+            )} */}
           </ul>
           <ThemeBtn />
         </nav>
