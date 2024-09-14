@@ -82,21 +82,20 @@ export class Service {
             return false
         }
     }
-
-    async getPosts(queries = [Query.equal("status", "active")]) {
+    async getPosts(limit = 10, offset = 0, queries = [Query.equal("status", "active")]) {
         try {
-            return await this.databases.listDocuments(
+            const response = await this.databases.listDocuments(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
-                queries,
-
-
-            )
+                queries.concat([Query.limit(limit), Query.offset(offset)])
+            );
+            return response;
         } catch (error) {
-            console.log("Appwrite serive :: getPosts :: error", error);
-            return false
+            console.log("Appwrite service :: getPosts :: error", error);
+            return false;
         }
     }
+
 
     // file upload service
 

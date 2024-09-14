@@ -13,7 +13,7 @@ function AllPosts() {
     const [currentPage, setCurrentPage] = useState(1);
     const indexOfLastItem = currentPage * limit;
     const indexOfFirstItem = indexOfLastItem - limit;
-    const currentItems = posts?.documents?.slice(indexOfFirstItem, indexOfLastItem)
+    // const currentItems = posts?.documents?.slice(indexOfFirstItem, indexOfLastItem)
     const totalPages = Math.ceil(posts?.total / limit)
 
 
@@ -29,7 +29,7 @@ function AllPosts() {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await appwriteService.getPosts();
+                const response = await appwriteService.getPosts(limit, currentPage);
                 if (response) {
                     setPosts(response);
                 }
@@ -40,7 +40,8 @@ function AllPosts() {
         };
 
         fetchPosts();
-    }, []);
+    }, [limit, currentPage]);
+
 
     // const handleShowMore = () => {
     //     setLimit((prevLimit) => prevLimit + 2); // Increase limit to show more posts
@@ -55,7 +56,7 @@ function AllPosts() {
                     </div>
                 ) : (
                     <div className='flex flex-wrap'>
-                        {currentItems?.map((post) => (
+                        {posts?.documents?.map((post) => (
                             <div key={post.$id} className='w-1/4 p-2'>
                                 <PostCard {...post} />
                             </div>
