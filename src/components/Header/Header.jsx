@@ -1,14 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Container, Logo, LogoutBtn } from '../index'
 import { Link, NavLink } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import ThemeBtn from '../ThemeBtn'
 import appwriteService from '../../appwrite/conifg'
-
+import userFallback from '../../assets/profile-user.png';
+import { logout } from '../../store/authSlice'
+import authService from '../../appwrite/auth'
 function Header() {
   const authStatus = useSelector((state) => state.auth.status)
   const authData = useSelector((state) => state.auth.userData)
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+
   const navigate = useNavigate()
   const navItems = [
     {
@@ -57,6 +62,17 @@ function Header() {
     //   active: authStatus,
     // },
   ]
+  const logoutHandler = async () => {
+    setLoading(true); // Set loading to true when the process starts
+    try {
+      await authService.logout(); // Await the logout process
+      dispatch(logout()); // Dispatch the logout action
+    } catch (error) {
+      console.error("Logout failed: ", error);
+    }
+    setLoading(false); // Set loading to false when the process is complete
+  };
+  console.log(authData)
   return (
     <header className='py-3 bg-light-primary" shadow'>
       <Container>
@@ -99,26 +115,30 @@ function Header() {
                 />
               </div>
             )} */}
-            <div className="dropdown text-end header-container d-flex align-items-center">
-              {authData?.prefs?.profile_picture && (
+            {authData && (
+              <div className="dropdown text-end header-container d-flex align-items-center">
+                {/* {authData?.prefs?.profile_picture && ( */}
                 <a className="link-body-emphasis text-decoration-none dropdown-toggle ms-2" data-bs-toggle="dropdown" aria-expanded="false">
-                  <img src={appwriteService.getFilePreview(authData?.prefs?.profile_picture)} alt="mdo" className="object-cover w-10 h-10 rounded-full" />
+                  <img src={authData?.prefs?.profile_picture
+                    ? appwriteService.getFilePreview(authData.prefs.profile_picture)
+                    : userFallback} alt="mdo" className="object-cover w-10 h-10 rounded-full" />
                 </a>
-              )}
-              <ul className="dropdown-menu text-small" >
-                <p>{authData?.prefs?.nickname ? (
-                  <p>Hi,{authData?.prefs?.nickname}</p>
-                ) : authData?.prefs?.name ? (
-                  <p>Hi,{authData?.prefs?.name}</p>
-                ) : (
-                  <p>Hi,Guest</p>
-                )}</p>
-                <li><a className="dropdown-item" onClick={(e) => { navigate('/profile') }}>Profile</a></li>
-                <li><a className="dropdown-item" onClick={(e) => { navigate('/userPost') }}>Post</a></li>
-                <li><hr className="dropdown-divider" /></li>
-                <li><a className="dropdown-item" onClick={(e) => { navigate('/logout') }}>Sign out</a></li>
-              </ul>
-            </div>
+                {/* )} */}
+                <ul className="dropdown-menu text-small" >
+                  {authData?.prefs?.nickname ? (
+                    <p>Hi,{authData?.prefs?.nickname}</p>
+                  ) : authData?.prefs?.name ? (
+                    <p>Hi,{authData?.prefs?.name}</p>
+                  ) : (
+                    <p>Hi,Guest</p>
+                  )}
+                  <li><a className="dropdown-item" onClick={(e) => { navigate('/profile') }}>Profile</a></li>
+                  <li><a className="dropdown-item" onClick={(e) => { navigate('/userPost') }}>Post</a></li>
+                  <li><hr className="dropdown-divider" /></li>
+                  <li><a className="dropdown-item" onClick={logoutHandler}>Sign out</a></li>
+                </ul>
+              </div>
+            )}
             {/* 
             {authStatus && (
               <li>

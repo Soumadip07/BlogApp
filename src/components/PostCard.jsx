@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import SkeletonCard from '../utils/SkeletonCard.jsx';
 import formatDate from '../utils/ConstanFunc.js';
 import moment from 'moment';
-
+import cardPlaceholder from '../assets/centralpush.png';
 function PostCard({ $id, title, featuredImage, content, category, date }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -57,7 +57,8 @@ function PostCard({ $id, title, featuredImage, content, category, date }) {
         <div className="flex items-center justify-center flex-grow overflow-hidden rounded-lg shadow-md">
           <img
             key={$id}
-            src={appwriteService.getFilePreview(featuredImage)}
+            src={featuredImage ? appwriteService.getFilePreview(featuredImage)
+              : cardPlaceholder}
             alt={title}
             className="object-cover w-full h-[300px] rounded-lg"
           />
