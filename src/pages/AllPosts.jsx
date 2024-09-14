@@ -3,14 +3,19 @@ import { Container, Loader, PostCard } from '../components'
 import appwriteService from "../appwrite/conifg.js";
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllPost } from '../store/postSlice.js';
-
+import Pagination from '../components/Pagination.jsx';
 
 function AllPosts() {
     const [posts, setPosts] = useState([])
     const [loading, setLoading] = useState(true)
     const dispatch = useDispatch()
-    const [limit, setLimit] = useState(9);
+    const [limit, setLimit] = useState(8);
     const [currentPage, setCurrentPage] = useState(1);
+    const indexOfLastItem = currentPage * limit;
+    const indexOfFirstItem = indexOfLastItem - limit;
+    const currentItems = posts?.documents?.slice(indexOfFirstItem, indexOfLastItem)
+    const totalPages = Math.ceil(posts?.total / limit)
+
 
     // useEffect(() => {
     //     appwriteService.getPosts().then((posts) => {
@@ -24,9 +29,9 @@ function AllPosts() {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await appwriteService.getPosts(limit);
+                const response = await appwriteService.getPosts();
                 if (response) {
-                    setPosts(response.documents);
+                    setPosts(response);
                 }
             } catch (error) {
                 console.error("Error fetching posts:", error);
@@ -35,7 +40,7 @@ function AllPosts() {
         };
 
         fetchPosts();
-    }, [limit]);
+    }, []);
 
     // const handleShowMore = () => {
     //     setLimit((prevLimit) => prevLimit + 2); // Increase limit to show more posts
@@ -50,7 +55,7 @@ function AllPosts() {
                     </div>
                 ) : (
                     <div className='flex flex-wrap'>
-                        {posts?.map((post) => (
+                        {currentItems?.map((post) => (
                             <div key={post.$id} className='w-1/4 p-2'>
                                 <PostCard {...post} />
                             </div>
@@ -67,7 +72,12 @@ function AllPosts() {
                         )} */}
                     </div>
                 )}
-
+                <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={setCurrentPage}
+                >
+                </Pagination>
             </Container>
         </div>
     )

@@ -83,17 +83,18 @@ export class Service {
         }
     }
 
-    async getPosts(limit = 10, offset = 0, queries = [Query.equal("status", "active")]) {
+    async getPosts(queries = [Query.equal("status", "active")]) {
         try {
-            const response = await this.databases.listDocuments(
+            return await this.databases.listDocuments(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
-                queries.concat([Query.limit(limit), Query.offset(offset)])
-            );
-            return response;
+                queries,
+
+
+            )
         } catch (error) {
-            console.log("Appwrite service :: getPosts :: error", error);
-            return false;
+            console.log("Appwrite serive :: getPosts :: error", error);
+            return false
         }
     }
 

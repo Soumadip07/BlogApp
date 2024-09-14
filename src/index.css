@@ -409,3 +409,31 @@ h4 {
 .tag-btn.active {
     border-color: var(--clr-light-gray);
 }
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.pagination-button {
+    margin: 0 5px;
+    padding: 8px 16px;
+    border: none;
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+.pagination-button.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.pagination-button:disabled {
+    cursor: not-allowed;
+    background-color: #e0e0e0;
+}
+
+.pagination-button:hover:not(.active):not(:disabled) {
+    background-color: #ddd;
+}
