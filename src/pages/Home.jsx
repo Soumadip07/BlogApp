@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import appwriteService from "../appwrite/conifg.js";
 import { Container, Loader, PostCard } from '../components'
-import ErrorBoundary from '../components/ErrorHandler.jsx';
 import { useDispatch } from 'react-redux';
 import { getAllPost } from '../store/postSlice.js';
 
@@ -31,33 +30,29 @@ function Home() {
 
     if (loading) {
         return (
-            <ErrorBoundary>
-                <div className="w-full py-8 mt-4 text-center">
-                    <Container>
-                        <div className="flex justify-center w-full">
-                            <Loader />
-                        </div>
-                    </Container>
-                </div>
-            </ErrorBoundary>
+            <div className="w-full py-8 mt-4 text-center">
+                <Container>
+                    <div className="flex justify-center w-full">
+                        <Loader />
+                    </div>
+                </Container>
+            </div>
         )
     }
 
     if (posts.length === 0) {
         return (
-            <ErrorBoundary>
-                <div className="w-full py-8 mt-4 text-center">
-                    <Container>
-                        <div className="flex flex-wrap">
-                            <div className="w-full p-2">
-                                <h1 className="text-2xl font-bold hover:text-gray-500">
-                                    Login to read posts
-                                </h1>
-                            </div>
+            <div className="w-full py-8 mt-4 text-center">
+                <Container>
+                    <div className="flex flex-wrap">
+                        <div className="w-full p-2">
+                            <h1 className="text-2xl font-bold hover:text-gray-500">
+                                Login to read posts
+                            </h1>
                         </div>
-                    </Container>
-                </div>
-            </ErrorBoundary>
+                    </div>
+                </Container>
+            </div>
         )
     }
 

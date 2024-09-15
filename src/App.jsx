@@ -6,10 +6,10 @@ import { login, logout, updateUserData } from "./store/authSlice"
 import { Footer, Header } from './components'
 import { Outlet } from 'react-router-dom'
 import { ThemeProvider } from './contexts/theme'
-
+import { ErrorBoundary } from 'react-error-boundary'
+import ErrorHandlerPage from './components/ErrorHandle/ErrorBoundary'
 function App() {
   const postData = useSelector((state) => state.posts?.posts || []);
-
 
   const [loading, setLoading] = useState(true)
   const dispatch = useDispatch()
@@ -66,17 +66,22 @@ function App() {
 
 
   return !loading ? (
-    <ThemeProvider value={{ themeMode, darkTheme, lightTheme }}>
-      <div className='flex flex-wrap content-between min-h-screen bg-light-primary'>
-        <div className='block w-full'>
-          <Header />
-          <main>
-            TODO:  <Outlet />
-          </main>
-          <Footer />
+    <ErrorBoundary
+      FallbackComponent={ErrorHandlerPage}
+      onError={() => console.log("Error happened!")}
+    >
+      <ThemeProvider value={{ themeMode, darkTheme, lightTheme }}>
+        <div className='flex flex-wrap content-between min-h-screen bg-light-primary'>
+          <div className='block w-full'>
+            <Header />
+            <main>
+              TODO:  <Outlet />
+            </main>
+            <Footer />
+          </div>
         </div>
-      </div>
-    </ThemeProvider>
+      </ThemeProvider>
+    </ErrorBoundary>
   ) : null
 }
 
