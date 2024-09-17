@@ -27,9 +27,15 @@ function UserPostPage() {
             FallbackComponent={ErrorHandlerPage}
             onError={() => console.log("Error happened!")}
         >
-            <div>
-                <UserPosts posts={posts} />
-            </div>
+            {status === 'loading' ? (
+                <div className="flex justify-center w-full" >
+                    <Loader />
+                </div>
+            ) : (
+                <div>
+                    <UserPosts posts={posts} />
+                </div>
+            )}
         </ErrorBoundary>
     )
 }

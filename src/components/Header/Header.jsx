@@ -130,7 +130,7 @@ function Header() {
                   ) : authData?.prefs?.name ? (
                     <p>Hi,{authData?.prefs?.name}</p>
                   ) : (
-                    <p>Hi,Guest</p>
+                    <p>Hi,{authData?.name}</p>
                   )}
                   <li><a className="dropdown-item" onClick={(e) => { navigate('/profile') }}>Profile</a></li>
                   <li><a className="dropdown-item" onClick={(e) => { navigate('/userPost') }}>Post</a></li>

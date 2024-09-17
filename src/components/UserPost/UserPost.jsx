@@ -23,15 +23,14 @@ function UserPosts({ posts }) {
             showBoundary(error);
         }
     }, [posts, showBoundary, authData]);
-    console.log(filteredPosts)
 
     return (
         <>
-            {filteredPosts.length ? (
+            {filteredPosts?.length ? (
                 <div className="w-full py-8">
                     <Container>
                         <div className="flex flex-wrap">
-                            {filteredPosts.map((post) => (
+                            {filteredPosts?.map((post) => (
                                 <div key={post.$id} className="w-1/4 p-2">
                                     <PostCard {...post} />
                                 </div>

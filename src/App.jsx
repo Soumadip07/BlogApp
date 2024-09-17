@@ -13,10 +13,10 @@ function App() {
   const [loading, setLoading] = useState(true)
   const dispatch = useDispatch()
   const authData = useSelector((state) => state.auth.userData)
+
   const currentPrefs = authData?.prefs || {};
 
   // const profile_pic = authData?.prefs.profile_picture ? authData.prefs.profile_picture : ""
-  // console.log(authData)
 
   const [themeMode, setThemeMode] = useState(() => localStorage.getItem("themeMode") || "light");
   useEffect(() => {
