@@ -1,34 +1,40 @@
-import { nanoid, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import appwriteService from "../appwrite/conifg.js";
 
 const initialState = {
-    posts: [],  // An array to hold post objects
+    posts: null,
+    status: 'idle',
+    error: null,
 };
+
 const postsSlice = createSlice({
     name: "posts",
     initialState,
     reducers: {
-        addPost: (state, action) => {
-            const newPost = {
-                id: nanoid(),  // Generating a unique ID for each post
-                ...action.payload,  // Merging the post data
-            };
-            state.posts.push(newPost); // Adding the new post to the array
+        postLoading: (state) => {
+            state.status = 'loading';
         },
         getAllPost: (state, action) => {
-            state.posts = action.payload;  // Store fetched posts in state
-            state.status = 'succeeded';  // Mark status as succeeded after fetching posts
-        },
-        postLoading: (state) => {
-            state.status = 'loading'; // Set status to 'loading' when fetching posts
+            state.posts = action.payload;
+            state.status = 'succeeded';
         },
         postError: (state, action) => {
-            state.status = 'failed';  // Set status to 'failed' in case of error
-            state.error = action.payload; // Capture the error message
+            state.status = 'failed';
+            state.error = action.payload;
         },
-        // Additional reducers can be added as needed
-    }
+    },
 });
 
-export const { addPost, getAllPost, postLoading, postError } = postsSlice.actions;
+export const { getAllPost, postLoading, postError } = postsSlice.actions;
 
 export default postsSlice.reducer;
+
+export const fetchPosts = (limit, currentPage) => async (dispatch) => {
+    dispatch(postLoading());
+    try {
+        const response = await appwriteService.getPosts(limit, currentPage);
+        dispatch(getAllPost(response));
+    } catch (error) {
+        dispatch(postError(error.message));
+    }
+};

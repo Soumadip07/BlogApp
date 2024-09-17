@@ -1,56 +1,35 @@
-import React, { useState, useEffect } from 'react'
-import { Container, Loader, PostCard } from '../components'
-import appwriteService from "../appwrite/conifg.js";
+import React, { useEffect, useState } from 'react';
+import { Container, Loader, PostCard } from '../components';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllPost } from '../store/postSlice.js';
+import { fetchPosts, getAllPost, postLoading } from '../store/postSlice';
 import Pagination from '../components/Pagination.jsx';
 
 function AllPosts() {
-    const [posts, setPosts] = useState([])
-    const [loading, setLoading] = useState(true)
-    const dispatch = useDispatch()
-    const [limit, setLimit] = useState(8);
+    const dispatch = useDispatch();
+    const postData = useSelector((state) => state.posts?.posts || []);
+
+    const { posts, status } = useSelector((state) => state.posts || []);
     const [currentPage, setCurrentPage] = useState(1);
-    const indexOfLastItem = currentPage * limit;
-    const indexOfFirstItem = indexOfLastItem - limit;
-    // const currentItems = posts?.documents?.slice(indexOfFirstItem, indexOfLastItem)
-    const totalPages = Math.ceil(posts?.total / limit)
+    const [limit, setLimit] = useState(8);
 
+    const totalPages = Math.ceil(posts?.total / limit);
 
-    // useEffect(() => {
-    //     appwriteService.getPosts().then((posts) => {
-    //         if (posts) {
-    //             setPosts(posts.documents)
-    //             
-    //         }
-    //         setLoading(false)
-    //     })
-    // }, [])
     useEffect(() => {
-        const fetchPosts = async () => {
-            try {
-                const response = await appwriteService.getPosts(limit, currentPage);
-                if (response) {
-                    setPosts(response);
-                }
-            } catch (error) {
-                console.error("Error fetching posts:", error);
-            }
-            setLoading(false);
-        };
+        if (!posts || posts.length === 0) {
+            dispatch(postLoading());
+            dispatch(fetchPosts(limit, currentPage));
+        }
+    }, [limit, currentPage, posts]);
 
-        fetchPosts();
-    }, [limit, currentPage]);
-
-
-    // const handleShowMore = () => {
-    //     setLimit((prevLimit) => prevLimit + 2); // Increase limit to show more posts
-    // };
+    const handlePageChange = (newPage) => {
+        setCurrentPage(newPage);
+        dispatch(fetchPosts(limit, newPage));
+    };
 
     return (
         <div className='w-full py-8'>
             <Container>
-                {loading ? (
+                {status === 'loading' ? (
                     <div className="flex justify-center w-full">
                         <Loader />
                     </div>
@@ -61,27 +40,18 @@ function AllPosts() {
                                 <PostCard {...post} />
                             </div>
                         ))}
-                        {/* {!allPostsLoaded && (
-                            <div className='flex justify-center w-full mt-4'>
-                                <button
-                                    className='px-4 py-2 text-white bg-blue-500 rounded'
-                                    onClick={handleShowMore}
-                                >
-                                    Show More
-                                </button>
-                            </div>
-                        )} */}
                     </div>
                 )}
-                <Pagination
-                    currentPage={currentPage}
-                    totalPages={totalPages}
-                    onPageChange={setCurrentPage}
-                >
-                </Pagination>
+                {posts?.documents?.length > 0 && (
+                    <Pagination
+                        currentPage={currentPage}
+                        totalPages={totalPages}
+                        onPageChange={handlePageChange}
+                    />
+                )}
             </Container>
         </div>
-    )
+    );
 }
 
-export default AllPosts
+export default AllPosts;
