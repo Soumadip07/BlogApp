@@ -10,6 +10,7 @@ import google from '../assets/google.svg'
 import facebook from '../assets/facebook.svg';
 import git from '../assets/github.svg';
 import { account } from '../appwrite/auth'
+import { useErrorBoundary } from 'react-error-boundary'
 
 function Login() {
     const navigate = useNavigate()
@@ -17,7 +18,7 @@ function Login() {
     const { register, handleSubmit } = useForm()
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false);
-
+    const { showBoundary } = useErrorBoundary();
     const login = async (data) => {
         setError("")
         setLoading(true);
@@ -32,6 +33,7 @@ function Login() {
             console.log("Result ===>", result)
         } catch (error) {
             setError(error.message)
+            showBoundary(error.message);
         }
         setLoading(false);
     }

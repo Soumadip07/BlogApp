@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import robot from '../assets/Art.svg';
 import google from '../assets/google.svg'
+import { useErrorBoundary } from 'react-error-boundary'
 // import { account } from '../appwrite/auth.js'
 
 function Signup() {
@@ -15,6 +16,7 @@ function Signup() {
     const dispatch = useDispatch()
     const { register, handleSubmit } = useForm()
     const [loading, setLoading] = useState(false);
+    const { showBoundary } = useErrorBoundary();
 
     const create = async (data) => {
         setError("")
@@ -29,6 +31,7 @@ function Signup() {
         } catch (error) {
             console.log(error)
             setError(error.message)
+            showBoundary(error.message);
         }
         setLoading(false);
     }

@@ -4,8 +4,11 @@ import { Button, Input, RTE, Select } from "..";
 import appwriteService from "../../appwrite/conifg.js";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useErrorBoundary } from "react-error-boundary";
 
 export default function PostForm({ post }) {
+    const { showBoundary } = useErrorBoundary();
+
     const { register, handleSubmit, watch, setValue, control, getValues } = useForm({
         defaultValues: {
             title: post?.title || "",
@@ -71,6 +74,7 @@ export default function PostForm({ post }) {
             }
         } catch (error) {
             setError("An error occurred while submitting the post.");
+            showBoundary(error);
         }
     };
 

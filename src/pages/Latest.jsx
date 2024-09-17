@@ -3,6 +3,8 @@ import { Latest } from '../components'
 import { Loader } from '../components'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPosts, postLoading } from '../store/postSlice';
+import { ErrorBoundary } from 'react-error-boundary';
+import ErrorHandlerPage from '../components/ErrorHandle/ErrorBoundary';
 
 function LatestPage() {
     const dispatch = useDispatch();
@@ -20,7 +22,10 @@ function LatestPage() {
         }
     }, [limit, posts]);
     return (
-        <>
+        <ErrorBoundary
+            FallbackComponent={ErrorHandlerPage}
+            onError={() => console.log("Error happened!")}
+        >
             {status === 'loading' ? (
                 <div className="flex justify-center w-full" >
                     <Loader />
@@ -30,7 +35,7 @@ function LatestPage() {
                     <Latest posts={posts} />
                 </div>
             )}
-        </>
+        </ErrorBoundary>
     )
 }
 

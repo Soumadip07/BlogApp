@@ -3,6 +3,8 @@ import { Loader } from '../components'
 import { useDispatch, useSelector } from 'react-redux';
 import CategoryList from '../components/Category.jsx';
 import { fetchPosts, postLoading } from '../store/postSlice.js';
+import { ErrorBoundary } from 'react-error-boundary';
+import ErrorHandlerPage from '../components/ErrorHandle/ErrorBoundary.jsx';
 
 function CategoryPage() {
     const dispatch = useDispatch();
@@ -20,7 +22,11 @@ function CategoryPage() {
         }
     }, [limit, posts]);
     return (
-        <>
+        <ErrorBoundary
+            FallbackComponent={ErrorHandlerPage}
+            onError={() => console.log("Error happened!")}
+        >
+
             {status === 'loading' ? (
                 <div className="flex justify-center w-full" >
                     <Loader />
@@ -30,7 +36,7 @@ function CategoryPage() {
                     <CategoryList posts={posts?.documents} />
                 </div>
             )}
-        </>
+        </ErrorBoundary>
     )
 }
 

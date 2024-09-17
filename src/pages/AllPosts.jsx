@@ -3,6 +3,8 @@ import { Container, Loader, PostCard } from '../components';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPosts, getAllPost, postLoading } from '../store/postSlice';
 import Pagination from '../components/Pagination.jsx';
+import { ErrorBoundary } from 'react-error-boundary';
+import ErrorHandlerPage from '../components/ErrorHandle/ErrorBoundary.jsx';
 
 function AllPosts() {
     const dispatch = useDispatch();
@@ -35,30 +37,35 @@ function AllPosts() {
     };
 
     return (
-        <div className='w-full py-8'>
-            <Container>
-                {status === 'loading' ? (
-                    <div className="flex justify-center w-full">
-                        <Loader />
-                    </div>
-                ) : (
-                    <div className='flex flex-wrap'>
-                        {posts?.documents?.map((post) => (
-                            <div key={post.$id} className='w-1/4 p-2'>
-                                <PostCard {...post} />
-                            </div>
-                        ))}
-                    </div>
-                )}
-                {posts?.documents?.length > 0 && (
-                    <Pagination
-                        currentPage={currentPage}
-                        totalPages={totalPages}
-                        onPageChange={handlePageChange}
-                    />
-                )}
-            </Container>
-        </div>
+        <ErrorBoundary
+            FallbackComponent={ErrorHandlerPage}
+            onError={() => console.log("Error happened!")}
+        >
+            <div className='w-full py-8'>
+                <Container>
+                    {status === 'loading' ? (
+                        <div className="flex justify-center w-full">
+                            <Loader />
+                        </div>
+                    ) : (
+                        <div className='flex flex-wrap'>
+                            {posts?.documents?.map((post) => (
+                                <div key={post.$id} className='w-1/4 p-2'>
+                                    <PostCard {...post} />
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                    {posts?.documents?.length > 0 && (
+                        <Pagination
+                            currentPage={currentPage}
+                            totalPages={totalPages}
+                            onPageChange={handlePageChange}
+                        />
+                    )}
+                </Container>
+            </div>
+        </ErrorBoundary>
     );
 }
 

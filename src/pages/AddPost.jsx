@@ -1,13 +1,20 @@
 import React from 'react'
 import { Container, PostForm } from '../components'
+import { ErrorBoundary } from 'react-error-boundary'
+import ErrorHandlerPage from '../components/ErrorHandle/ErrorBoundary'
 
 function AddPost() {
   return (
-    <div className='py-8'>
+    <ErrorBoundary
+      FallbackComponent={ErrorHandlerPage}
+      onError={() => console.log("Error happened!")}
+    >
+      <div className='py-8'>
         <Container>
-            <PostForm />
+          <PostForm />
         </Container>
-    </div>
+      </div>
+    </ErrorBoundary>
   )
 }
 
