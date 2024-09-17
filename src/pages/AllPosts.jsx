@@ -8,7 +8,7 @@ function AllPosts() {
     const dispatch = useDispatch();
     const { posts, status } = useSelector((state) => state.posts || []);
     const [currentPage, setCurrentPage] = useState(1);
-    const [limit, setLimit] = useState(9);
+    const [limit, setLimit] = useState(8);
 
 
     const totalPages = Math.ceil(posts?.total / limit);
@@ -31,9 +31,8 @@ function AllPosts() {
 
     const handlePageChange = (newPage) => {
         setCurrentPage(newPage);
-        dispatch(fetchPosts(limit, newPage));
+        dispatch(fetchPosts(limit, (currentPage * limit)));//offset means how elemenst from the first to avoid not page number
     };
-    console.log(posts)
 
     return (
         <div className='w-full py-8'>
