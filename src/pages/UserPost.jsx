@@ -21,7 +21,7 @@ function UserPostPage() {
             localStorage.setItem("limits", limit)
         }
     }, [limit, posts]);
-    console.log(posts)
+    // console.log(posts)
     return (
         <ErrorBoundary
             FallbackComponent={ErrorHandlerPage}

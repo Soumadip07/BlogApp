@@ -6,7 +6,6 @@ import NoDataPage from '../NoData';
 import { useErrorBoundary } from 'react-error-boundary';
 
 function UserPosts({ posts }) {
-    const postData = useSelector((state) => state.posts?.posts || []);
     const authData = useSelector((state) => state.auth.userData);
     const { showBoundary } = useErrorBoundary();
 
@@ -14,11 +13,7 @@ function UserPosts({ posts }) {
 
     useEffect(() => {
         try {
-            if (!postData?.documents) {
-                // Simulate an error if there's no post data (you can customize this error as needed)
-                throw new Error('No post data available!');
-            }
-            // Sort the posts by date in descending order (latest first)
+
             const sortedPosts = posts?.documents?.filter(
                 (post) => post.userId === authData?.$id
             );

@@ -9,7 +9,6 @@ import { ThemeProvider } from './contexts/theme'
 import { ErrorBoundary } from 'react-error-boundary'
 import ErrorHandlerPage from './components/ErrorHandle/ErrorBoundary'
 function App() {
-  const postData = useSelector((state) => state.posts?.posts || []);
 
   const [loading, setLoading] = useState(true)
   const dispatch = useDispatch()

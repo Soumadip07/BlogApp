@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Container, PostCard } from '../components'
-import { useSelector } from 'react-redux';
 function Latest({ posts }) {
-    const postData = useSelector((state) => state.posts?.posts || []);
-    // console.log(postData?.documents, " ===?", posts)
     const [filteredPosts, setFilteredPosts] = useState([]);
 
     useEffect(() => {
-        if (postData?.documents) {
+        if (posts?.documents) {
             // Sort the posts by date in descending order (latest first)
-            const sortedPosts = [...postData.documents].sort((a, b) => {
+            const sortedPosts = [...posts?.documents].sort((a, b) => {
                 const dateA = new Date(a.date);
                 const dateB = new Date(b.date);
                 return dateB - dateA;
@@ -17,7 +14,7 @@ function Latest({ posts }) {
 
             setFilteredPosts(sortedPosts);
         }
-    }, [postData]);
+    }, [posts]);
     return (
         <div className='w-full py-8'>
             <Container>
