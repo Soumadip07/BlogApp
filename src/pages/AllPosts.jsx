@@ -6,25 +6,34 @@ import Pagination from '../components/Pagination.jsx';
 
 function AllPosts() {
     const dispatch = useDispatch();
-    const postData = useSelector((state) => state.posts?.posts || []);
-
     const { posts, status } = useSelector((state) => state.posts || []);
     const [currentPage, setCurrentPage] = useState(1);
-    const [limit, setLimit] = useState(8);
+    const [limit, setLimit] = useState(9);
+
 
     const totalPages = Math.ceil(posts?.total / limit);
-
+    const storedLimit = localStorage.getItem("limits");
+    if (!storedLimit) {
+        localStorage.setItem("limits", limit)
+    }
     useEffect(() => {
-        if (!posts || posts.length === 0) {
+        if (!posts || posts.length === 0 || (storedLimit != limit)) {
             dispatch(postLoading());
             dispatch(fetchPosts(limit, currentPage));
+            localStorage.setItem("limits", limit)
         }
-    }, [limit, currentPage, posts]);
+    }, [limit, posts]);
+
+    useEffect(() => {
+        dispatch(postLoading());
+        dispatch(fetchPosts(limit, currentPage));
+    }, [currentPage]);
 
     const handlePageChange = (newPage) => {
         setCurrentPage(newPage);
         dispatch(fetchPosts(limit, newPage));
     };
+    console.log(posts)
 
     return (
         <div className='w-full py-8'>

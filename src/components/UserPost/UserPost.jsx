@@ -19,7 +19,7 @@ function UserPosts({ posts }) {
                 throw new Error('No post data available!');
             }
             // Sort the posts by date in descending order (latest first)
-            const sortedPosts = postData?.documents?.filter(
+            const sortedPosts = posts?.documents?.filter(
                 (post) => post.userId === authData?.$id
             );
             setFilteredPosts(sortedPosts);
@@ -27,7 +27,8 @@ function UserPosts({ posts }) {
             // Catch the error and pass it to showBoundary to trigger ErrorBoundary
             showBoundary(error);
         }
-    }, [postData, showBoundary, authData]);
+    }, [posts, showBoundary, authData]);
+    console.log(filteredPosts)
 
     return (
         <>

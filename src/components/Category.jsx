@@ -8,7 +8,6 @@ import food from '../assets/food.png';
 import fashion from '../assets/fashion.png';
 function CategoryList({ posts }) {
 
-    console.log(posts)
 
     const categories = [
         {
@@ -41,7 +40,7 @@ function CategoryList({ posts }) {
     const [filteredPosts, setFilteredPosts] = useState([]);
 
     useEffect(() => {
-        const filtered = posts.filter((post) => post.category === selectedCategory);
+        const filtered = posts?.filter((post) => post.category === selectedCategory);
         setFilteredPosts(filtered);
     }, [selectedCategory, posts]);
 

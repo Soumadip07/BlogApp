@@ -1,34 +1,28 @@
 import React, { useEffect, useState } from 'react'
-import appwriteService from "../appwrite/conifg.js";
 import { Container, Loader, PostCard } from '../components'
-import { useDispatch } from 'react-redux';
-import { getAllPost } from '../store/postSlice.js';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchPosts, postLoading } from '../store/postSlice.js';
 
 function Home() {
-    const [posts, setPosts] = useState([])
-    const [loading, setLoading] = useState(true)
+    const { posts, status } = useSelector((state) => state.posts || []);
     const dispatch = useDispatch()
-
+    const storedLimit = localStorage.getItem("limits");
+    const [limit, setLimit] = useState(25);
+    if (!storedLimit) {
+        localStorage.setItem("limits", limit)
+    }
+    if (!posts) {
+        dispatch(postLoading());
+        dispatch(fetchPosts(limit));
+    }
     useEffect(() => {
-        const fetchPosts = async () => {
-            try {
-                const response = await appwriteService.getPosts()
-                dispatch(getAllPost(response))
-                if (response) {
-                    setPosts(response.documents)
-                }
-
-            } catch (error) {
-                console.error("Failed to fetch posts:", error)
-            } finally {
-                setLoading(false) // Ensure loading is set to false regardless of success or failure
-            }
+        if (!posts || posts.length === 0 || (storedLimit != limit)) {
+            dispatch(postLoading());
+            dispatch(fetchPosts(limit));
+            localStorage.setItem("limits", limit)
         }
-
-        fetchPosts()
-    }, [])
-
-    if (loading) {
+    }, [limit, posts]);
+    if (status === 'loading') {
         return (
             <div className="w-full py-8 mt-4 text-center">
                 <Container>
@@ -60,7 +54,7 @@ function Home() {
         <div className='w-full py-8'>
             <Container>
                 <div className='flex flex-wrap'>
-                    {posts.map((post) => (
+                    {posts?.documents?.map((post) => (
                         <div key={post.$id} className='w-1/4 p-2'>
                             <PostCard {...post} />
                         </div>

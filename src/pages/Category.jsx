@@ -1,33 +1,33 @@
 import React, { useEffect, useState } from 'react'
 import { Loader } from '../components'
-import appwriteService from "../appwrite/conifg.js";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import CategoryList from '../components/Category.jsx';
+import { fetchPosts, postLoading } from '../store/postSlice.js';
 
 function CategoryPage() {
-    // const [posts, setPosts] = useState([])
-    const [loading, setLoading] = useState(true)
-    const postData = useSelector((state) => state.posts?.posts?.documents || []);
-    // useEffect(() => {
-    //     appwriteService.getPosts().then((posts) => {
-    //         if (posts) {
-    //             setPosts(posts.documents)
-    //         }
-    //         setLoading(false)
-    //     })
-    // }, [])
+    const dispatch = useDispatch();
+    const { posts, status } = useSelector((state) => state.posts || []);
+    const [limit, setLimit] = useState(25);
+    const storedLimit = localStorage.getItem("limits");
+    if (!storedLimit) {
+        localStorage.setItem("limits", limit)
+    }
     useEffect(() => {
-        setLoading(false)
-    }, [postData]);
+        if (!posts || posts.length === 0 || (storedLimit != limit)) {
+            dispatch(postLoading());
+            dispatch(fetchPosts(limit));
+            localStorage.setItem("limits", limit)
+        }
+    }, [limit, posts]);
     return (
         <>
-            {loading ? (
+            {status === 'loading' ? (
                 <div className="flex justify-center w-full" >
                     <Loader />
                 </div>
             ) : (
                 <div>
-                    <CategoryList posts={postData} />
+                    <CategoryList posts={posts?.documents} />
                 </div>
             )}
         </>

@@ -1,21 +1,27 @@
 import React, { useEffect, useState } from 'react'
-import { Latest, UserPosts } from '../components'
+import { UserPosts } from '../components'
 import { Loader } from '../components'
-import appwriteService from "../appwrite/conifg.js";
 import ErrorHandlerPage from '../components/ErrorHandle/ErrorBoundary.jsx';
 import { ErrorBoundary } from 'react-error-boundary';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchPosts, postLoading } from '../store/postSlice.js';
 
 function UserPostPage() {
-    const [posts, setPosts] = useState([])
-    const [loading, setLoading] = useState(true)
+    const dispatch = useDispatch();
+    const { posts, status } = useSelector((state) => state.posts || []);
+    const [limit, setLimit] = useState(25);
+    const storedLimit = localStorage.getItem("limits");
+    if (!storedLimit) {
+        localStorage.setItem("limits", limit)
+    }
     useEffect(() => {
-        appwriteService.getPosts().then((posts) => {
-            if (posts) {
-                setPosts(posts.documents)
-            }
-            setLoading(false)
-        })
-    }, [])
+        if (!posts || posts.length === 0 || (storedLimit != limit)) {
+            dispatch(postLoading());
+            dispatch(fetchPosts(limit));
+            localStorage.setItem("limits", limit)
+        }
+    }, [limit, posts]);
+    console.log(posts)
     return (
         <ErrorBoundary
             FallbackComponent={ErrorHandlerPage}

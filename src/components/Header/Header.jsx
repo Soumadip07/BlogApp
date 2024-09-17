@@ -72,7 +72,7 @@ function Header() {
     }
     setLoading(false); // Set loading to false when the process is complete
   };
-  console.log(authData)
+  // console.log(authData)
   return (
     <header className='py-3 bg-light-primary" shadow'>
       <Container>
