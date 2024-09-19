@@ -437,3 +437,125 @@ h4 {
 .pagination-button:hover:not(.active):not(:disabled) {
     background-color: #ddd;
 }
+
+.hero-banner {
+    height: 740px;
+}
+
+.search-box {
+    width: 50%;
+    padding: 15px;
+    border-radius: 14px;
+}
+
+.centrDiv {
+    height: 380px;
+    width: 1140px;
+}
+
+.card {
+    width: 320px;
+    height: 500px;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 8px solid #fff;
+    position: relative;
+}
+
+.card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+
+}
+
+.card-body {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: -100%;
+    position: absolute;
+    background: #4a566e2e;
+    backdrop-filter: blur(5px);
+    border-radius: 5px;
+    color: #fff;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: 2s;
+}
+
+.card:hover .card-body {
+    right: 0;
+}
+
+.card-title {
+    text-transform: uppercase;
+    font-size: 50px;
+    font-weight: 500;
+}
+
+.card-sub-title {
+    text-transform: capitalize;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.card-info {
+    font-size: 16px;
+    line-height: 25px;
+    margin: 40px 0;
+    font-weight: 400;
+}
+
+.card-btn {
+    color: #4A566E;
+    background: #fff;
+
+}
+
+.grid-container {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+}
+
+.item {
+    padding: 15px;
+    border: 5px solid #fff;
+}
+
+.grid-card {
+    height: 500px;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 8px solid #fff;
+}
+
+/* .grid-card:hover .card-body {
+    right: 0;
+} */
+
+.first-card {
+    grid-column-start: 1;
+    grid-column-end: 4;
+}
+
+.second-card {
+    grid-column-start: 4;
+    grid-column-end: 7;
+}
+
+.col-span-2 {
+    grid-column: span 2;
+}
+
+.fetaured-box {
+    height: 380px;
+    width: 1140px;
+}

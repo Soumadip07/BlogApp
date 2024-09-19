@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchPosts, postLoading } from '../store/postSlice.js';
 import { ErrorBoundary } from 'react-error-boundary';
 import ErrorHandlerPage from '../components/ErrorHandle/ErrorBoundary.jsx';
+import Hero from '../components/Hero.jsx';
 
 function Home() {
     const { posts, status } = useSelector((state) => state.posts || []);
@@ -40,6 +41,7 @@ function Home() {
         return (
             <div className="w-full py-8 mt-4 text-center">
                 <Container>
+                    <Hero />
                     <div className="flex flex-wrap">
                         <div className="w-full p-2">
                             <h1 className="text-2xl font-bold hover:text-gray-500">
@@ -57,15 +59,16 @@ function Home() {
             FallbackComponent={ErrorHandlerPage}
             onError={() => console.log("Error happened!")}
         >
+            <Hero />
             <div className='w-full py-8'>
                 <Container>
-                    <div className='flex flex-wrap'>
+                    {/* <div className='flex flex-wrap'>
                         {posts?.documents?.map((post) => (
                             <div key={post.$id} className='w-1/4 p-2'>
                                 <PostCard {...post} />
                             </div>
                         ))}
-                    </div>
+                    </div> */}
                 </Container>
             </div>
         </ErrorBoundary>

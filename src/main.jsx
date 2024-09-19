@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { lazy, Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
@@ -20,7 +20,7 @@ import ErrorPage from './components/ErrorPage.jsx'
 import Category from './pages/Category.jsx'
 import LatestPage from './pages/Latest.jsx'
 import Profile from './components/Profile/Profile.jsx'
-import UserPostPage from './pages/UserPost.jsx'
+const UserPostPage = lazy(() => import('./pages/UserPost.jsx'));
 const router = createBrowserRouter([
   {
     path: "/",
@@ -51,7 +51,9 @@ const router = createBrowserRouter([
         path: "/userPost",
         element: (
           <AuthLayout authentication>
-            <UserPostPage />
+            <Suspense fallback={<div>Loading...</div>}>
+              <UserPostPage />
+            </Suspense>
           </AuthLayout>
         ),
       },
