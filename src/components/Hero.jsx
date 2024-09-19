@@ -11,6 +11,7 @@ function Hero() {
     // console.log(waveColor, "===", localStorage.getItem("themeMode"))
     const { posts, status } = useSelector((state) => state.posts || []);
     const post1 = posts?.documents?.[12];
+    const post2 = posts?.documents?.[24];
     console.log(post1)
     return (
         <div className='flex items-center justify-center flex-column'>
@@ -43,7 +44,7 @@ function Hero() {
                 <Popular />
             </div>
             <div className="my-10">
-                <FeaturedPost posts={posts} />
+                <FeaturedPost post={post2} />
             </div>
             <div className="my-10">
                 <AllArticles />

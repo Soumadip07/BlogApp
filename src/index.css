@@ -526,8 +526,10 @@ h4 {
 }
 
 .item {
-    padding: 15px;
+    padding: 0;
     border: 5px solid #fff;
+    position: relative;
+    overflow: hidden;
 }
 
 .grid-card {
@@ -535,11 +537,29 @@ h4 {
     border-radius: 20px;
     overflow: hidden;
     border: 8px solid #fff;
+    position: relative;
 }
 
-/* .grid-card:hover .card-body {
+.grid-body {
+    position: absolute;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(74, 86, 110, 0.18);
+    backdrop-filter: blur(5px);
+    border-radius: 5px;
+    color: #fff;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: right 2s ease-in-out;
+}
+
+.grid-card:hover .grid-body {
     right: 0;
-} */
+}
 
 .first-card {
     grid-column-start: 1;
@@ -555,7 +575,7 @@ h4 {
     grid-column: span 2;
 }
 
-.fetaured-box {
+.featured-box {
     height: 380px;
     width: 1140px;
 }
