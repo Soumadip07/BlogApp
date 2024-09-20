@@ -6,6 +6,7 @@ import Wave from './Wave';
 import Popular from './Popular';
 import AllArticles from './AllArticles';
 import { useSelector } from 'react-redux';
+import FeatureSlider from './FeaturesSlider';
 function Hero() {
     const waveColor = localStorage.getItem("themeMode") === "dark" ? '#223044' : '#ffffff';
     // console.log(waveColor, "===", localStorage.getItem("themeMode"))
@@ -44,7 +45,7 @@ function Hero() {
                 <Popular />
             </div>
             <div className="my-10">
-                <FeaturedPost post={post2} />
+                <FeatureSlider posts={posts?.documents.slice(10, 16)} />
             </div>
             <div className="my-10">
                 <AllArticles />

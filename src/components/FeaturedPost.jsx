@@ -5,7 +5,7 @@ import appwriteService from '../appwrite/conifg';
 function FeaturedPost({ post }) {
     return (
         <div className="relative flex justify-center w-full mt-10 feature-box">
-            <div className="bg-white rounded-xl transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-2xl shadow-lg flex flex-col md:flex-row w-[90%] max-w-5xl z-10">
+            <div className="z-10 flex flex-col transition-all duration-500 ease-in-out transform bg-white shadow-lg rounded-xl hover:scale-105 hover:shadow-2xl md:flex-row">
                 <div className="w-full md:w-1/2">
                     <img
                         src={post?.featuredImage ? appwriteService.getFilePreview(post?.featuredImage) : cardPlaceholder}
