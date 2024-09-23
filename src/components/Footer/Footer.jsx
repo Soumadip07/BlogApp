@@ -1,10 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Logo from '../Logo'
+import NewsLetter from './NewsLetter'
+import { useSelector } from 'react-redux';
 
 function Footer() {
+    const { posts, status } = useSelector((state) => state.posts || []);
+
     return (
         <section className="relative py-10 overflow-hidden border border-t-2 bg-light-primary border-t-black">
+            <NewsLetter posts={posts?.documents.slice(15, 16)} />
             <div className="relative z-10 px-4 mx-auto max-w-7xl">
                 <div className="flex flex-wrap -m-6">
                     <div className="w-full p-6 md:w-1/2 lg:w-5/12">

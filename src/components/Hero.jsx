@@ -7,6 +7,7 @@ import Popular from './Popular';
 import AllArticles from './AllArticles';
 import { useSelector } from 'react-redux';
 import FeatureSlider from './FeaturesSlider';
+import NewsLetter from './Footer/NewsLetter';
 function Hero() {
     const waveColor = localStorage.getItem("themeMode") === "dark" ? '#223044' : '#ffffff';
     // console.log(waveColor, "===", localStorage.getItem("themeMode"))

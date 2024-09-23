@@ -6,7 +6,7 @@ function FeaturedPost({ post }) {
     return (
         <div className="relative flex justify-center w-full mt-10 feature-box">
             <div className="z-10 flex flex-col transition-all duration-500 ease-in-out transform bg-white shadow-lg rounded-xl hover:scale-105 hover:shadow-2xl md:flex-row">
-                <div className="w-full md:w-1/2">
+                <div className="feature-image">
                     <img
                         src={post?.featuredImage ? appwriteService.getFilePreview(post?.featuredImage) : cardPlaceholder}
                         alt="Featured Post"
@@ -15,10 +15,12 @@ function FeaturedPost({ post }) {
                 </div>
                 <div className="flex flex-col justify-between w-full px-5 py-5 md:w-1/2">
                     <div>
-                        <p className="mb-2 text-xs font-bold text-blue-500 uppercase">{post?.category}</p>
-                        <h3 className="mb-3 text-2xl font-bold">{post?.title}</h3>
+                        <p className="mb-2 text-xs font-bold text-blue-500 uppercase">Featured</p>
+                        <h3 className="mb-3 text-2xl font-bold">Cheap Airline tickest Great Way to Save</h3>
                         <p className="mb-4 text-sm text-gray-600"
-                            dangerouslySetInnerHTML={{ __html: post?.content }}>
+                        // dangerouslySetInnerHTML={{ __html: post?.content }}
+                        >
+                            In this digital generation where information can be easily obtained within seconds, business cards
                         </p>
                     </div>
                     <div className="flex items-center justify-between text-xs text-gray-500">
