@@ -12,7 +12,7 @@ function AllArticles() {
     }
     const { posts, status } = useSelector((state) => state.posts || []);
     const slicedPosts = posts?.documents?.slice(6, 12)
-    console.log(slicedPosts)
+    // console.log(slicedPosts)
     return (
         <>
             <h1>All Posts</h1>

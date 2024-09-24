@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 
 function Footer() {
     const { posts, status } = useSelector((state) => state.posts || []);
-
+    // console.log(posts)
     return (
         <section className="relative py-10 overflow-hidden border border-t-2 bg-light-primary border-t-black">
             <NewsLetter posts={posts?.documents.slice(15, 16)} />

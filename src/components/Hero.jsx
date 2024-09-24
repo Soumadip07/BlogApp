@@ -14,7 +14,7 @@ function Hero() {
     const { posts, status } = useSelector((state) => state.posts || []);
     const post1 = posts?.documents?.[12];
     const post2 = posts?.documents?.[24];
-    console.log(post1)
+    // console.log(post1)
     return (
         <div className='flex items-center justify-center flex-column'>
             {/* Hero Section */}

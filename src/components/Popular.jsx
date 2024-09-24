@@ -47,7 +47,7 @@ function Popular() {
                     </div>
 
                 </div>
-                <div class="col">
+                <div className="col">
                     <div className="card">
                         <img
                             src={filteredPosts?.[1]?.featuredImage ? appwriteService.getFilePreview(filteredPosts?.[1]?.featuredImage) : cardPlaceholder}
@@ -63,7 +63,7 @@ function Popular() {
                     </div>
 
                 </div>
-                <div class="col">
+                <div className="col">
                     <div className="card">
                         <img
                             src={filteredPosts?.[2]?.featuredImage ? appwriteService.getFilePreview(filteredPosts?.[2]?.featuredImage) : cardPlaceholder}

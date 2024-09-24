@@ -95,6 +95,27 @@ export class Service {
             return false;
         }
     }
+    async getSearchPosts(searchTerm = '', limit = 10, offset = 0, queries = [Query.equal("status", "active")]) {
+        try {
+            if (searchTerm) {
+                queries.push(Query.search("title", searchTerm));
+            }
+            queries.push(Query.limit(limit));
+            queries.push(Query.offset(offset));
+
+            const response = await this.databases.listDocuments(
+                conf.appwriteDatabaseId,
+                conf.appwriteCollectionId,
+                queries
+            );
+
+            return response;
+        } catch (error) {
+            console.log("Appwrite service :: getSearchPosts :: error", error);
+            return false;
+        }
+    }
+
 
 
     // file upload service
