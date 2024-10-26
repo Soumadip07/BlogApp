@@ -74,7 +74,7 @@ function Header() {
   };
   // console.log(authData)
   return (
-    <header className='py-3 shadow'>
+    <header className='py-3 header-main'>
       <Container>
         <nav className='header-container'>
           <div className='mr-4'>

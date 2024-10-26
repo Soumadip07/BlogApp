@@ -2,7 +2,7 @@ import React from 'react';
 
 function SkeletonCard() {
     return (
-        <div className='flex flex-col gap-4 p-4 bg-gray-100 border border-gray-200 rounded-lg shadow-lg h-[600px] w-[300px] animate-pulse'>
+        <div className='flex flex-col gap-4 p-4 border border-gray-200 rounded-lg shadow-lg h-[600px] w-[300px] animate-pulse'>
             {/* User Info Skeleton */}
             {/* <div className="flex items-center gap-2 p-2 border-b border-gray-200">
                 <div className="w-12 h-12 bg-gray-300 rounded-full"></div>
