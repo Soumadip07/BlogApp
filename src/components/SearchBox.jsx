@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { FaSearch } from 'react-icons/fa';
+import SearchIcon from '../assets/search.svg';
 import appwriteService from '../appwrite/conifg'
 import { useNavigate } from 'react-router-dom';
 
@@ -35,16 +35,16 @@ function SearchBox() {
     }, [searchTerm]);
     return (
         <div className="flex flex-col items-center">
-            <div className="flex bg-white rounded-full overflow-hidden shadow-md w-[500px] mb-4">
+            <div className="flex mb-4 overflow-hidden search-wrapper">
                 <input
                     type="text"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    placeholder="Search article"
+                    placeholder="Search"
                     className="flex-grow px-4 py-2 outline-none"
                 />
-                <button className="flex items-center justify-center px-4 py-2 text-white bg-blue-600">
-                    <FaSearch />
+                <button className="search-button">
+                    <img src={SearchIcon} alt='search-icon' className='search-icon' />
                 </button>
             </div>
 

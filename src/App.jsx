@@ -8,6 +8,7 @@ import { Outlet } from 'react-router-dom'
 import { ThemeProvider } from './contexts/theme'
 import { ErrorBoundary } from 'react-error-boundary'
 import ErrorHandlerPage from './components/ErrorHandle/ErrorBoundary'
+import Sidebar from './components/Sidebar/Sidebar'
 function App() {
 
   const [loading, setLoading] = useState(true)
@@ -73,6 +74,7 @@ function App() {
         <div className='flex flex-wrap content-between min-h-screen bg-light-primary'>
           <div className='block w-full'>
             <Header />
+            <Sidebar />
             <main>
               <Outlet />
             </main>

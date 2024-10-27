@@ -78,7 +78,8 @@ h4 {
     --clr-grey-title: #A8B3CF;
     /* White */
     --clr-white: #ffffff;
-
+    /*border color*/
+    --clr-border-color: #a8b3cf;
     /*****************************/
 
 
@@ -444,10 +445,38 @@ h4 {
     height: 740px;
 }
 
-.search-box {
-    width: 50%;
-    padding: 15px;
+.search-wrapper {
+    width: 600px;
+    max-width: 100%;
+    position: relative;
+}
+
+.search-wrapper input {
     border-radius: 14px;
+    background-color: var(--clr-secondary);
+    min-height: 50px;
+    border: 0.5px solid var(--clr-border-color);
+    font-size: 17px;
+    width: 100%;
+    color: var(--clr-grey-title);
+}
+
+
+.search-button {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.search-icon {
+    height: 35px;
+    width: 35px;
+    color: var(--clr-grey-title);
 }
 
 .centrDiv {
@@ -655,7 +684,8 @@ h4 {
     width: 100%;
     min-height: 412px;
     padding: 16px;
-    border: 0.5px solid #a8b3cf;
+    border: 0.5px solid var(--clr-border-color);
+    ;
     border-radius: 16px;
     background-color: var(--clr-secondary);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
@@ -666,7 +696,7 @@ h4 {
 .category-card {
     font-size: var(--fs-300);
     min-width: 100px;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--clr-border-color);
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -878,4 +908,38 @@ input {
     padding: 15px;
     border-radius: 10px;
     width: 600px;
+}
+
+.sidebar {
+    width: 200px;
+    background-color: var(--clr-primary);
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    padding-top: 20px;
+    color: white;
+    border-right: 0.5px solid var(--clr-secondary);
+}
+
+.sidebar-nav {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar-item,
+.sidebar-item-active {
+    padding: 15px 20px;
+    display: block;
+    color: #c7c7c7;
+    text-decoration: none;
+}
+
+.sidebar-item-active {
+    background-color: #333;
+    color: #fff;
+}
+
+.sidebar-item:hover {
+    background-color: #333;
+    color: #fff;
 }
