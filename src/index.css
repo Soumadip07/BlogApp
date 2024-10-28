@@ -392,6 +392,12 @@ h4 {
 
 .header-main {
     border-bottom: 1px solid var(--clr-secondary);
+    position: sticky;
+    top: 0;
+    z-index: 33;
+    background-color: var(--clr-primary);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+    max-height: 100px;
 }
 
 .header-container {
@@ -503,8 +509,16 @@ h4 {
     position: relative;
 }
 
+.footer {
+    border-top: 1px solid var(--clr-secondary);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+    background-color: var(--clr-primary);
+    z-index: 34;
+    min-height: 300px;
+}
+
 .footer-card {
-    height: 400px;
+    height: 100%;
     width: 380px;
     border-radius: 20px;
     background-color: #fff;
@@ -923,7 +937,7 @@ input {
 }
 
 .sidebar {
-    width: 200px;
+    width: 250px;
     background-color: var(--clr-primary);
     height: 100vh;
     position: fixed;
@@ -931,6 +945,7 @@ input {
     padding-top: 20px;
     color: white;
     border-right: 1px solid var(--clr-secondary);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
 }
 
 .sidebar-nav {

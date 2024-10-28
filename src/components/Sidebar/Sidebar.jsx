@@ -54,7 +54,7 @@ function Sidebar() {
 
     return (
         <div className='z-20 sidebar'>
-            <div className='mr-4'>
+            <div className='m-4'>
                 <Link to='/'>
                     <Logo width='100px' />
                 </Link>

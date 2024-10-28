@@ -8,7 +8,7 @@ function Footer() {
     const { posts, status } = useSelector((state) => state.posts || []);
     // console.log(posts)
     return (
-        <section className="relative py-10 overflow-hidden border border-t-2 bg-light-primary border-t-black">
+        <section className="relative py-10 overflow-hidden footer">
             <NewsLetter posts={posts?.documents.slice(15, 16)} />
             <div className="relative z-10 px-4 mx-auto max-w-7xl">
                 <div className="flex flex-wrap -m-6">
@@ -17,14 +17,14 @@ function Footer() {
                             <div className="inline-flex items-center mb-4">
                                 <Logo width="100px" />
                             </div>
-                            <div>
+                            {/* <div>
                                 <p className="text-sm text-gray-600">
                                     &copy; Copyright 2024. All Rights Reserved by Wren.
                                 </p>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
-                    <div className="w-full p-6 md:w-1/2 lg:w-2/12">
+                    {/* <div className="w-full p-6 md:w-1/2 lg:w-2/12">
                         <div className="h-full">
                             <h3 className="font-semibold text-gray-500 uppercase text-s tracking-px mb-9">
                                 Company
@@ -138,7 +138,7 @@ function Footer() {
                                 </li>
                             </ul>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </section>

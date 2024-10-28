@@ -28,7 +28,7 @@ function Header() {
   };
   // console.log(authData)
   return (
-    <header className="py-3 header-main">
+    <header className="py-1 header-main">
       <Container>
         <div className="d-flex align-items-center justify-content-between">
           {/* Logo */}
