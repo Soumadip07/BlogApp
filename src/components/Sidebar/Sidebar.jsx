@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Container, Logo, LogoutBtn } from '../index'
+import { FaHome, FaRegNewspaper, FaTags, FaUserPlus, FaSignInAlt, FaPlusCircle, FaList } from 'react-icons/fa'; // Import icons
 
 function Sidebar() {
     const authStatus = useSelector((state) => state.auth.status);
@@ -10,52 +11,49 @@ function Sidebar() {
         {
             name: 'Home',
             slug: "/",
-            active: true
+            active: true,
+            icon: <FaHome /> // Add icon here
         },
         {
             name: "Latest",
             slug: "/latest",
             active: authStatus,
+            icon: <FaRegNewspaper /> // Add icon here
         },
         {
-            name: "Category",
+            name: "Tags",
             slug: "/category",
             active: authStatus,
+            icon: <FaTags /> // Add icon here
         },
-        // {
-        //   name: "User Post",
-        //   slug: "/userPost",
-        //   active: authStatus,
-        // },
         {
             name: "Login",
             slug: "/login",
             active: !authStatus,
+            icon: <FaSignInAlt /> // Add icon here
         },
         {
             name: "Signup",
             slug: "/signup",
             active: !authStatus,
+            icon: <FaUserPlus /> // Add icon here
         },
         {
             name: "All Posts",
             slug: "/all-posts",
             active: authStatus,
+            icon: <FaList /> // Add icon here
         },
         {
             name: "Add Post",
             slug: "/add-post",
             active: authStatus,
+            icon: <FaPlusCircle /> // Add icon here
         },
-        // {
-        //   name: "Profile",
-        //   slug: "/profile",
-        //   active: authStatus,
-        // },
-    ]
+    ];
 
     return (
-        <div className='sidebar'>
+        <div className='z-20 sidebar'>
             <div className='mr-4'>
                 <Link to='/'>
                     <Logo width='100px' />
@@ -69,10 +67,11 @@ function Sidebar() {
                                 to={item.slug}
                                 className={({ isActive }) =>
                                     isActive
-                                        ? 'nav-items-active fs-700 px-6 py-2  inline-block text-primary-blue'
-                                        : 'nav-items-inactive fs-700 px-6 py-2  inline-block nav-items'
+                                        ? 'd-flex nav-items-active fw-very-bold px-6 py-2  inline-block text-primary-blue'
+                                        : 'd-flex nav-items-inactive px-6 py-2  inline-block nav-items'
                                 }
                             >
+                                <span className='px-2 py-1'>{item.icon}</span>
                                 {item.name}
                             </NavLink>
                         </li>

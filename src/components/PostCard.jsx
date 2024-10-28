@@ -52,7 +52,7 @@ function PostCard({ $id, title, featuredImage, content, category, date }) {
               {date && (
                 <p className='fs-300 fw-bold'>{formatDate(moment(date).format("YYYY,MM, DD"))}</p>
               )}
-              <p className='fs-300 category-card'>#{category}</p>
+              <p className='category-card'>#{category}</p>
             </span>
           </div>
           {/* Title Section */}
@@ -87,7 +87,7 @@ function PostCard({ $id, title, featuredImage, content, category, date }) {
           </div>
         </div>
       </div>
-    </Link>
+    </Link >
   );
 }
 

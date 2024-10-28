@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Container, PostCard } from '../components'
+import PostContainer from './container/PostContainer';
 function Latest({ posts }) {
     const [filteredPosts, setFilteredPosts] = useState([]);
 
@@ -17,7 +18,7 @@ function Latest({ posts }) {
     }, [posts]);
     return (
         <div className='w-full py-8'>
-            <Container>
+            <PostContainer>
                 <div className='flex flex-wrap'>
                     {filteredPosts.map((post) => (
                         <div key={post.$id} className='w-1/4 p-2'>
@@ -25,7 +26,7 @@ function Latest({ posts }) {
                         </div>
                     ))}
                 </div>
-            </Container>
+            </PostContainer>
         </div>
     );
 }
