@@ -168,6 +168,10 @@ html.light {
     background-color: var(--clr-secondary);
 }
 
+.bg-heading {
+    background-color: var(--clr-secondary);
+}
+
 .text-secondary {
     color: var(--clr-secondary);
 }
@@ -206,6 +210,10 @@ html.light {
 
 .bg-secondary {
     background-color: var(--clr-secondary);
+}
+
+.bg-border {
+    background-color: var(--clr-border-color);
 }
 
 .bg-white {
