@@ -2,6 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import SearchIcon from '../assets/search.svg';
 import appwriteService from '../appwrite/conifg'
 import { useNavigate } from 'react-router-dom';
+import Loader from './Loader';
+import formatDate from '../utils/ConstanFunc';
+import moment from 'moment';
 
 function SearchBox() {
     const [searchTerm, setSearchTerm] = useState('');
@@ -9,6 +12,7 @@ function SearchBox() {
     const [searchResults, setSearchResults] = useState([]);
     const timeoutRef = useRef(null);
     const navigate = useNavigate();
+    const searchRef = useRef(null);
     const handleSearch = async (query) => {
         if (!query) return;
 
@@ -20,7 +24,11 @@ function SearchBox() {
         }
         setLoading(false);
     };
-
+    const handleClickOutside = (event) => {
+        if (searchRef.current && !searchRef.current.contains(event.target)) {
+            setSearchResults([]);
+        }
+    };
     useEffect(() => {
         if (timeoutRef.current) {
             clearTimeout(timeoutRef.current);
@@ -33,8 +41,16 @@ function SearchBox() {
 
         return () => clearTimeout(timeoutRef.current);
     }, [searchTerm]);
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+    // console.log(searchResults)
+
     return (
-        <div className="flex flex-col items-center">
+        <div className={`flex flex-col items-center ${searchResults.length > 0 ? 'overlay-wrapper' : ''}`}>
             <div className="flex mb-4 overflow-hidden search-wrapper">
                 <input
                     type="text"
@@ -49,23 +65,27 @@ function SearchBox() {
             </div>
 
             {loading ? (
-                <p>Loading...</p>
+                <Loader />
             ) : (
-                <div className="w-full">
+                <div className="w-full d-flex flex-column justify-content-center align-items-center" ref={searchRef}>
                     {searchResults.length > 0 ? (
-                        <ul>
+                        <ul className='d-flex justify-content-center align-items-center flex-column'>
                             {searchResults.map((result) => (
                                 <li
                                     key={result.$id}
-                                    className="py-2 border-b cursor-pointer text-danger"
-                                    onClick={() => navigate(`/post/${result.$id}`)} // Correctly referencing the result.$id
+                                    className="py-3 mb-2 border-b cursor-pointer search-result-box "
+                                    onClick={() => navigate(`/post/${result.$id}`)}
                                 >
-                                    {result?.title}
+                                    <div className='d-flex justify-content-around'>
+                                        <p className='fs-300 fw-bold'>{formatDate(moment(result?.date).format("YYYY,MM, DD"))}</p>
+                                        <p>{result?.title}</p>
+                                        <p className='category-card'>{result?.category}</p>
+                                    </div>
                                 </li>
                             ))}
                         </ul>
                     ) : (
-                        searchTerm && <p>No results found</p>
+                        searchTerm && <p className='p-1 text-white search-result-box'>No such Posts..</p>
                     )}
                 </div>
             )}
