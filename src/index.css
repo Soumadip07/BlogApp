@@ -1008,3 +1008,40 @@ input {
     background-color: #333;
     color: #fff;
 }
+
+.announcement-wrapper {
+    overflow: hidden;
+    background-color: var(--clr-hover-blue);
+    padding: 1rem 0;
+    white-space: nowrap;
+    position: relative;
+}
+
+.announcement-wrapper ul {
+    display: flex;
+    gap: 2rem;
+    animation: scroll-left 10s linear infinite;
+    height: 10px;
+}
+
+.announcement-wrapper li {
+    list-style: none;
+    padding: 0 2rem;
+}
+
+.announcement-wrapper p {
+    color: #FFFFFF;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* Smooth scrolling animation */
+@keyframes scroll-left {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}

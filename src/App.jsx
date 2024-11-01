@@ -9,6 +9,7 @@ import { ThemeProvider } from './contexts/theme'
 import { ErrorBoundary } from 'react-error-boundary'
 import ErrorHandlerPage from './components/ErrorHandle/ErrorBoundary'
 import Sidebar from './components/Sidebar/Sidebar'
+import AnnouncementBar from './components/Announcements/AnnouncementBar'
 function App() {
 
   const [loading, setLoading] = useState(true)
@@ -73,6 +74,7 @@ function App() {
       <ThemeProvider value={{ themeMode, darkTheme, lightTheme }}>
         <div className='flex flex-wrap content-between min-h-screen bg-light-primary'>
           <div className='block w-full'>
+            <AnnouncementBar />
             <Header />
             <Sidebar />
             <main>
