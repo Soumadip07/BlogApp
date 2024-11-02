@@ -74,7 +74,7 @@ function App() {
       <ThemeProvider value={{ themeMode, darkTheme, lightTheme }}>
         <div className='flex flex-wrap content-between min-h-screen bg-light-primary'>
           <div className='block w-full'>
-            <AnnouncementBar />
+            {/* <AnnouncementBar /> */}
             <Header />
             <Sidebar />
             <main>

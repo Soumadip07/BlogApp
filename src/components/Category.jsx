@@ -6,6 +6,7 @@ import tech from '../assets/tech.png';
 import travel from '../assets/travel.png';
 import food from '../assets/food.png';
 import fashion from '../assets/fashion.png';
+import PostContainer from './container/PostContainer';
 function CategoryList({ posts }) {
 
 
@@ -46,7 +47,7 @@ function CategoryList({ posts }) {
 
     return (
         <div className='w-full py-8'>
-            <Container>
+            <PostContainer>
                 <ul className='flex-wrap d-flex'>
                     {categories.map((category, index) => (
                         <li key={index} className='me-2'>
@@ -70,7 +71,7 @@ function CategoryList({ posts }) {
                         </div>
                     ))}
                 </div>
-            </Container>
+            </PostContainer>
         </div>
     );
 }

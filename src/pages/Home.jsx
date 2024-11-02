@@ -5,6 +5,7 @@ import { fetchPosts, postLoading } from '../store/postSlice.js';
 import { ErrorBoundary } from 'react-error-boundary';
 import ErrorHandlerPage from '../components/ErrorHandle/ErrorBoundary.jsx';
 import Hero from '../components/Hero.jsx';
+import PostContainer from '../components/container/PostContainer.jsx';
 
 function Home() {
     const { posts, status } = useSelector((state) => state.posts || []);
@@ -61,7 +62,7 @@ function Home() {
         >
             <Hero />
             <div className='w-full py-8'>
-                <Container>
+                <PostContainer>
                     {/* <div className='flex flex-wrap'>
                         {posts?.documents?.map((post) => (
                             <div key={post.$id} className='w-1/4 p-2'>
@@ -69,7 +70,7 @@ function Home() {
                             </div>
                         ))}
                     </div> */}
-                </Container>
+                </PostContainer>
             </div>
         </ErrorBoundary>
     )

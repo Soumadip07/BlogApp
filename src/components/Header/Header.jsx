@@ -15,7 +15,7 @@ function Header() {
   const authData = useSelector((state) => state.auth.userData)
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const logoutHandler = async () => {
     setLoading(true); // Set loading to true when the process starts
     try {
@@ -44,9 +44,9 @@ function Header() {
           {/* Profile and Theme Button */}
           <div className="d-flex align-items-center">
             {authData && (
-              <div className="dropdown text-end d-flex align-items-center">
+              <div className="mr-4 dropdown d-flex align-items-center">
                 <a
-                  className="link-body-emphasis text-decoration-none dropdown-toggle ms-2"
+                  className="mb-3 "
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
@@ -57,36 +57,37 @@ function Header() {
                         : userFallback
                     }
                     alt="Profile"
-                    className="object-cover w-10 h-10 rounded-full"
+                    className="object-cover w-8 h-8 cursor-pointer rounded-2 profile img-fluid"
                   />
                 </a>
-                <ul className="dropdown-menu text-small">
-                  {authData?.prefs?.nickname ? (
-                    <p>Hi, {authData?.prefs?.nickname}</p>
-                  ) : authData?.prefs?.name ? (
-                    <p>Hi, {authData?.prefs?.name}</p>
-                  ) : (
-                    <p>Hi, {authData?.name}</p>
-                  )}
-                  <li>
-                    <a className="dropdown-item" onClick={() => navigate('/profile')}>
-                      Profile
-                    </a>
+                <ul className="mt-2 dropdown-menu profile-card text-small">
+                  <div className="profile-header">
+                    <img
+                      src={
+                        authData?.prefs?.profile_picture
+                          ? appwriteService.getFilePreview(authData.prefs.profile_picture)
+                          : userFallback
+                      }
+                      alt="Profile"
+                      className="object-cover w-8 h-8 mt-3 profile-image img-fluid"
+                    />
+                    <p className="profile-greeting">
+                      Hey {authData?.prefs?.nickname || authData?.prefs?.name || authData?.name} !!
+                    </p>
+                  </div>
+
+                  <li className="dropdown-item profile-option" onClick={() => navigate('/profile')}>
+                    Profile
                   </li>
-                  <li>
-                    <a className="dropdown-item" onClick={() => navigate('/userPost')}>
-                      Post
-                    </a>
+                  <li className="dropdown-item profile-option" onClick={() => navigate('/userPost')}>
+                    Post
                   </li>
-                  <li>
-                    <hr className="dropdown-divider" />
-                  </li>
-                  <li>
-                    <a className="dropdown-item" onClick={logoutHandler}>
-                      Sign out
-                    </a>
+                  <li className="dropdown-divider profile-divider"></li>
+                  <li className="dropdown-item profile-option" onClick={logoutHandler}>
+                    Sign out
                   </li>
                 </ul>
+
               </div>
             )}
             <ThemeBtn className="ms-3" />
