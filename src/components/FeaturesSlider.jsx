@@ -32,7 +32,7 @@ function FeatureSlider({ posts }) {
     }, []);
 
     return (
-        <div className='d-flex align-items-center justify-content-center'>
+        <div className='my-10 d-flex align-items-center justify-content-center' style={{ marginTop: '200px' }}>
             <div className="recipe-container">
                 <h1>All Articles</h1>
                 <div className="swiper">
